@@ -47,6 +47,17 @@ const LETTER_SPACING_LITERALS: Record<(typeof LETTER_SPACING_KEYS)[number], stri
   wide: '0.02em',
 }
 
+const BREAKPOINT_ORDER = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const
+
+const BREAKPOINT_LITERALS: Record<(typeof BREAKPOINT_ORDER)[number], string> = {
+  xs: '480px',
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '1536px',
+}
+
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
   { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -282,11 +293,7 @@ function RadiusSwatch({ label, token, value }: { label: string; token: string; v
       onClick={handleCopy}
       aria-label={`Kopiera ${cssVar} (${value})`}
     >
-      <div
-        className={styles.radiusShape}
-        style={{ borderRadius: cssVar }}
-        aria-hidden
-      />
+      <div className={styles.radiusShape} style={{ borderRadius: cssVar }} aria-hidden />
       <span className={styles.radiusItemLabel}>{label}</span>
       <span className={styles.radiusItemValue}>{copied ? 'Copied!' : value}</span>
     </button>
@@ -324,6 +331,7 @@ function App() {
     { id: 'spacing', label: 'Spacing' },
     { id: 'radius', label: 'Radius' },
     { id: 'shadow', label: 'Shadow' },
+    { id: 'breakpoints', label: 'Breakpoints' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -406,12 +414,23 @@ function App() {
             </div>
           </section>
           <section className={styles.section}>
+            <h2 id="breakpoints">Breakpoints</h2>
+
+            <div className={styles.typeBlock}>
+              {BREAKPOINT_ORDER.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  literal={BREAKPOINT_LITERALS[key]}
+                  copyText={`var(--breakpoint-${key})`}
+                >
+                  <span>Viewport ≥ {BREAKPOINT_LITERALS[key]} — typisk min-width-gräns</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
             <h2 id="typography">Typography</h2>
-            <p className={styles.typeBlockIntro}>
-              Primitives live in <code>typography-tokens.css</code> (<code>var(--font-…)</code>). Preset combos are
-              in <code>text-styles.css</code> as utility classes. Click a row to copy a variable; click a style card to
-              copy its class name.
-            </p>
 
             <div className={styles.typeBlock}>
               <h3 className={styles.subHeading}>Font family</h3>
@@ -481,7 +500,8 @@ function App() {
                       maxWidth: '22rem',
                     }}
                   >
-                    Line one. Line two. Line three so you can see how the rhythm feels in a short paragraph.
+                    Line one. Line two. Line three so you can see how the rhythm feels in a short
+                    paragraph.
                   </span>
                 </TypeTokenRow>
               ))}
@@ -512,10 +532,7 @@ function App() {
 
             <div className={styles.typeBlock}>
               <h3 className={styles.subHeading}>Text styles</h3>
-              <p className={styles.typeBlockIntro}>
-                Classes from <code>text-styles.css</code> — add to your markup, e.g.{' '}
-                <code>{'<p class="text-body-md">'}</code>.
-              </p>
+
               {TEXT_STYLES_DOC.map(({ className, preview }) => (
                 <TextStyleCard key={className} className={className} preview={preview} />
               ))}

@@ -3,6 +3,7 @@
 @import './spacing-tokens.css';
 @import './radius-tokens.css';
 @import './shadow-tokens.css';
+@import './breakpoint-tokens.css';
 @import './typography-tokens.css';
 @import './text-styles.css';
 

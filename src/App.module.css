@@ -315,22 +315,6 @@ h2 {
   margin-bottom: 0;
 }
 
-.typeBlockIntro {
-  margin: 0 0 var(--space-md);
-  max-width: 42rem;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
-}
-
-.typeBlockIntro code {
-  font-size: 0.8125em;
-  padding: 0.1em 0.35em;
-  border-radius: 4px;
-  background: var(--color-border-subtle);
-  color: var(--color-text-primary);
-}
-
 .typeRow {
   display: flex;
   flex-direction: column;
