@@ -1,5 +1,5 @@
 /**
- * Typography primitives — keep in sync with src/tokens/typography.ts
+ * Typography primitives — raw tokens for font-family, size, weight, line-height, tracking.
  */
 :root {
   --font-family-body: Inter, sans-serif;

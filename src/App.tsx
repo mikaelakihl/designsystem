@@ -1,39 +1,70 @@
 import { useState, type ReactNode } from 'react'
 import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
-import { typography, fontSizeScaleOrder, textStyles, type TextStyleName } from './typography'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
 const LINE_HEIGHT_KEYS = ['tight', 'snug', 'normal', 'relaxed'] as const
 const LETTER_SPACING_KEYS = ['tight', 'normal', 'wide'] as const
 
-const TEXT_STYLE_ORDER: TextStyleName[] = [
-  'bodySm',
-  'bodyMd',
-  'labelSm',
-  'headingSm',
-  'headingMd',
-  'headingLg',
-]
+const FONT_SIZE_ORDER = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'] as const
 
-const TEXT_STYLE_PREVIEW: Record<TextStyleName, string> = {
-  bodySm: 'The quick brown fox jumps over the lazy dog.',
-  bodyMd: 'The quick brown fox jumps over the lazy dog.',
-  labelSm: 'Label',
-  headingSm: 'Section title',
-  headingMd: 'Page title',
-  headingLg: 'Display heading',
+/** Literal values shown next to each token in the docs (mirror typography-tokens.css). */
+const FONT_FAMILY_LITERALS: Record<(typeof FONT_FAMILY_KEYS)[number], string> = {
+  body: 'Inter, sans-serif',
+  heading: 'Inter, sans-serif',
+  mono: 'ui-monospace, SFMono-Regular, Menlo, monospace',
 }
+
+const FONT_SIZE_LITERALS: Record<(typeof FONT_SIZE_ORDER)[number], string> = {
+  xs: '12px',
+  sm: '14px',
+  md: '16px',
+  lg: '18px',
+  xl: '20px',
+  '2xl': '24px',
+  '3xl': '30px',
+  '4xl': '36px',
+}
+
+const FONT_WEIGHT_LITERALS: Record<(typeof FONT_WEIGHT_KEYS)[number], string> = {
+  regular: '400',
+  medium: '500',
+  semibold: '600',
+  bold: '700',
+}
+
+const LINE_HEIGHT_LITERALS: Record<(typeof LINE_HEIGHT_KEYS)[number], string> = {
+  tight: '1.2',
+  snug: '1.35',
+  normal: '1.5',
+  relaxed: '1.7',
+}
+
+const LETTER_SPACING_LITERALS: Record<(typeof LETTER_SPACING_KEYS)[number], string> = {
+  tight: '-0.02em',
+  normal: '0',
+  wide: '0.02em',
+}
+
+const TEXT_STYLES_DOC = [
+  { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
+  { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
+  { className: 'text-label-sm', preview: 'Label' },
+  { className: 'text-heading-sm', preview: 'Section title' },
+  { className: 'text-heading-md', preview: 'Page title' },
+  { className: 'text-heading-lg', preview: 'Display heading' },
+] as const
 
 function TypeTokenRow({
   label,
-  meta,
+  literal,
   copyText,
   children,
 }: {
   label: string
-  meta: string
+  /** Human-readable value for the docs column (e.g. 12px, 400, font stack). */
+  literal: string
   copyText: string
   children: ReactNode
 }) {
@@ -55,19 +86,18 @@ function TypeTokenRow({
       <div className={styles.typeRowMain}>
         <span className={styles.typeRowLabel}>{label}</span>
         <span className={styles.typeRowSample}>{children}</span>
-        <span className={styles.typeRowMeta}>{meta}</span>
+        <span className={styles.typeRowLiteral}>{literal}</span>
       </div>
       <span className={styles.typeRowVar}>{copied ? 'Copied!' : copyText}</span>
     </button>
   )
 }
 
-function TextStyleCard({ name }: { name: TextStyleName }) {
+function TextStyleCard({ className, preview }: { className: string; preview: string }) {
   const [copied, setCopied] = useState(false)
-  const snippet = `textStyles.${name}`
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(snippet)
+    navigator.clipboard.writeText(className)
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
   }
@@ -77,12 +107,12 @@ function TextStyleCard({ name }: { name: TextStyleName }) {
       type="button"
       className={styles.typeStyleCard}
       onClick={handleCopy}
-      aria-label={`Copy ${snippet}`}
+      aria-label={`Copy class ${className}`}
     >
-      <p className={styles.typeStylePreview} style={{ ...textStyles[name], margin: 0 }}>
-        {TEXT_STYLE_PREVIEW[name]}
+      <p className={`${styles.typeStylePreview} ${className}`} style={{ margin: 0 }}>
+        {preview}
       </p>
-      <p className={styles.typeStyleName}>{copied ? 'Copied!' : snippet}</p>
+      <p className={styles.typeStyleName}>{copied ? 'Copied!' : className}</p>
     </button>
   )
 }
@@ -334,8 +364,9 @@ function App() {
           <section className={styles.section}>
             <h2 id="typography">Typography</h2>
             <p className={styles.typeBlockIntro}>
-              Primitives match <code>typography-tokens.css</code> and <code>tokens/typography.ts</code>. Click a row
-              to copy a CSS variable; text style cards copy the <code>textStyles.*</code> key for use in React.
+              Primitives live in <code>typography-tokens.css</code> (<code>var(--font-…)</code>). Preset combos are
+              in <code>text-styles.css</code> as utility classes. Click a row to copy a variable; click a style card to
+              copy its class name.
             </p>
 
             <div className={styles.typeBlock}>
@@ -344,10 +375,10 @@ function App() {
                 <TypeTokenRow
                   key={key}
                   label={key}
-                  meta={typography.fontFamily[key]}
+                  literal={FONT_FAMILY_LITERALS[key]}
                   copyText={`var(--font-family-${key})`}
                 >
-                  <span style={{ fontFamily: typography.fontFamily[key] }}>
+                  <span style={{ fontFamily: `var(--font-family-${key})` }}>
                     The quick brown fox jumps over the lazy dog.
                   </span>
                 </TypeTokenRow>
@@ -356,14 +387,14 @@ function App() {
 
             <div className={styles.typeBlock}>
               <h3 className={styles.subHeading}>Font size</h3>
-              {fontSizeScaleOrder.map((key) => (
+              {FONT_SIZE_ORDER.map((key) => (
                 <TypeTokenRow
                   key={key}
                   label={key}
-                  meta={typography.fontSize[key]}
+                  literal={FONT_SIZE_LITERALS[key]}
                   copyText={`var(--font-size-${key})`}
                 >
-                  <span style={{ fontSize: typography.fontSize[key] }}>The quick brown fox</span>
+                  <span style={{ fontSize: `var(--font-size-${key})` }}>The quick brown fox</span>
                 </TypeTokenRow>
               ))}
             </div>
@@ -374,13 +405,13 @@ function App() {
                 <TypeTokenRow
                   key={key}
                   label={key}
-                  meta={String(typography.fontWeight[key])}
+                  literal={FONT_WEIGHT_LITERALS[key]}
                   copyText={`var(--font-weight-${key})`}
                 >
                   <span
                     style={{
-                      fontWeight: typography.fontWeight[key],
-                      fontSize: typography.fontSize.xl,
+                      fontWeight: `var(--font-weight-${key})`,
+                      fontSize: 'var(--font-size-xl)',
                     }}
                   >
                     Aa Bb Cc 012
@@ -395,13 +426,13 @@ function App() {
                 <TypeTokenRow
                   key={key}
                   label={key}
-                  meta={String(typography.lineHeight[key])}
+                  literal={LINE_HEIGHT_LITERALS[key]}
                   copyText={`var(--line-height-${key})`}
                 >
                   <span
                     style={{
-                      fontSize: typography.fontSize.sm,
-                      lineHeight: typography.lineHeight[key],
+                      fontSize: 'var(--font-size-sm)',
+                      lineHeight: `var(--line-height-${key})`,
                       display: 'block',
                       maxWidth: '22rem',
                     }}
@@ -418,15 +449,15 @@ function App() {
                 <TypeTokenRow
                   key={key}
                   label={key}
-                  meta={typography.letterSpacing[key]}
+                  literal={LETTER_SPACING_LITERALS[key]}
                   copyText={`var(--letter-spacing-${key})`}
                 >
                   <span
                     style={{
-                      fontFamily: typography.fontFamily.heading,
-                      fontSize: typography.fontSize['2xl'],
-                      fontWeight: typography.fontWeight.semibold,
-                      letterSpacing: typography.letterSpacing[key],
+                      fontFamily: 'var(--font-family-heading)',
+                      fontSize: 'var(--font-size-2xl)',
+                      fontWeight: 'var(--font-weight-semibold)',
+                      letterSpacing: `var(--letter-spacing-${key})`,
                     }}
                   >
                     Heading sample
@@ -438,11 +469,11 @@ function App() {
             <div className={styles.typeBlock}>
               <h3 className={styles.subHeading}>Text styles</h3>
               <p className={styles.typeBlockIntro}>
-                Composed presets from <code>tokens/text-styles.ts</code>. In React:{' '}
-                <code>{'{ ...textStyles.bodyMd }'}</code> on <code>style</code>, or map to CSS classes later.
+                Classes from <code>text-styles.css</code> — add to your markup, e.g.{' '}
+                <code>{'<p class="text-body-md">'}</code>.
               </p>
-              {TEXT_STYLE_ORDER.map((name) => (
-                <TextStyleCard key={name} name={name} />
+              {TEXT_STYLES_DOC.map(({ className, preview }) => (
+                <TextStyleCard key={className} className={className} preview={preview} />
               ))}
             </div>
           </section>
