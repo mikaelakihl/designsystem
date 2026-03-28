@@ -1,6 +1,91 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
+import { typography, fontSizeScaleOrder, textStyles, type TextStyleName } from './typography'
+
+const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
+const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
+const LINE_HEIGHT_KEYS = ['tight', 'snug', 'normal', 'relaxed'] as const
+const LETTER_SPACING_KEYS = ['tight', 'normal', 'wide'] as const
+
+const TEXT_STYLE_ORDER: TextStyleName[] = [
+  'bodySm',
+  'bodyMd',
+  'labelSm',
+  'headingSm',
+  'headingMd',
+  'headingLg',
+]
+
+const TEXT_STYLE_PREVIEW: Record<TextStyleName, string> = {
+  bodySm: 'The quick brown fox jumps over the lazy dog.',
+  bodyMd: 'The quick brown fox jumps over the lazy dog.',
+  labelSm: 'Label',
+  headingSm: 'Section title',
+  headingMd: 'Page title',
+  headingLg: 'Display heading',
+}
+
+function TypeTokenRow({
+  label,
+  meta,
+  copyText,
+  children,
+}: {
+  label: string
+  meta: string
+  copyText: string
+  children: ReactNode
+}) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(copyText)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.typeRow}
+      onClick={handleCopy}
+      aria-label={`Copy ${copyText}`}
+    >
+      <div className={styles.typeRowMain}>
+        <span className={styles.typeRowLabel}>{label}</span>
+        <span className={styles.typeRowSample}>{children}</span>
+        <span className={styles.typeRowMeta}>{meta}</span>
+      </div>
+      <span className={styles.typeRowVar}>{copied ? 'Copied!' : copyText}</span>
+    </button>
+  )
+}
+
+function TextStyleCard({ name }: { name: TextStyleName }) {
+  const [copied, setCopied] = useState(false)
+  const snippet = `textStyles.${name}`
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(snippet)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.typeStyleCard}
+      onClick={handleCopy}
+      aria-label={`Copy ${snippet}`}
+    >
+      <p className={styles.typeStylePreview} style={{ ...textStyles[name], margin: 0 }}>
+        {TEXT_STYLE_PREVIEW[name]}
+      </p>
+      <p className={styles.typeStyleName}>{copied ? 'Copied!' : snippet}</p>
+    </button>
+  )
+}
 
 function ColorSwatch({ name, hex, cssVar }: { name: string; hex: string; cssVar: string }) {
   const [copied, setCopied] = useState(false)
@@ -201,6 +286,118 @@ function App() {
           </section>
           <section className={styles.section}>
             <h2 id="typography">Typography</h2>
+            <p className={styles.typeBlockIntro}>
+              Primitives match <code>typography-tokens.css</code> and <code>tokens/typography.ts</code>. Click a row
+              to copy a CSS variable; text style cards copy the <code>textStyles.*</code> key for use in React.
+            </p>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Font family</h3>
+              {FONT_FAMILY_KEYS.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  meta={typography.fontFamily[key]}
+                  copyText={`var(--font-family-${key})`}
+                >
+                  <span style={{ fontFamily: typography.fontFamily[key] }}>
+                    The quick brown fox jumps over the lazy dog.
+                  </span>
+                </TypeTokenRow>
+              ))}
+            </div>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Font size</h3>
+              {fontSizeScaleOrder.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  meta={typography.fontSize[key]}
+                  copyText={`var(--font-size-${key})`}
+                >
+                  <span style={{ fontSize: typography.fontSize[key] }}>The quick brown fox</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Font weight</h3>
+              {FONT_WEIGHT_KEYS.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  meta={String(typography.fontWeight[key])}
+                  copyText={`var(--font-weight-${key})`}
+                >
+                  <span
+                    style={{
+                      fontWeight: typography.fontWeight[key],
+                      fontSize: typography.fontSize.xl,
+                    }}
+                  >
+                    Aa Bb Cc 012
+                  </span>
+                </TypeTokenRow>
+              ))}
+            </div>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Line height</h3>
+              {LINE_HEIGHT_KEYS.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  meta={String(typography.lineHeight[key])}
+                  copyText={`var(--line-height-${key})`}
+                >
+                  <span
+                    style={{
+                      fontSize: typography.fontSize.sm,
+                      lineHeight: typography.lineHeight[key],
+                      display: 'block',
+                      maxWidth: '22rem',
+                    }}
+                  >
+                    Line one. Line two. Line three so you can see how the rhythm feels in a short paragraph.
+                  </span>
+                </TypeTokenRow>
+              ))}
+            </div>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Letter spacing</h3>
+              {LETTER_SPACING_KEYS.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  meta={typography.letterSpacing[key]}
+                  copyText={`var(--letter-spacing-${key})`}
+                >
+                  <span
+                    style={{
+                      fontFamily: typography.fontFamily.heading,
+                      fontSize: typography.fontSize['2xl'],
+                      fontWeight: typography.fontWeight.semibold,
+                      letterSpacing: typography.letterSpacing[key],
+                    }}
+                  >
+                    Heading sample
+                  </span>
+                </TypeTokenRow>
+              ))}
+            </div>
+
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Text styles</h3>
+              <p className={styles.typeBlockIntro}>
+                Composed presets from <code>tokens/text-styles.ts</code>. In React:{' '}
+                <code>{'{ ...textStyles.bodyMd }'}</code> on <code>style</code>, or map to CSS classes later.
+              </p>
+              {TEXT_STYLE_ORDER.map((name) => (
+                <TextStyleCard key={name} name={name} />
+              ))}
+            </div>
           </section>
         </div>
       </main>

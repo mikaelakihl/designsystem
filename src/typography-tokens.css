@@ -1,0 +1,31 @@
+/**
+ * Typography primitives — keep in sync with src/tokens/typography.ts
+ */
+:root {
+  --font-family-body: Inter, sans-serif;
+  --font-family-heading: Inter, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+}
