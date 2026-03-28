@@ -32,17 +32,17 @@ a {
 .section {
 }
 
-/* .colorGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-} */
-
 .colorGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+}
+
+/* .colorGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 1rem;
-}
+} */
 
 .colorSwatch {
   display: flex;
@@ -54,8 +54,27 @@ a {
 }
 
 .colorPreview {
-  height: 60px;
+  position: relative;
+  height: 80px;
   width: 100%;
+}
+
+.hexWindow {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 0.5625rem;
+  font-family: monospace;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(24, 24, 27, 0.5);
+  border: 1px solid rgba(24, 24, 27, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  user-select: none;
 }
 
 .colorInfo {
@@ -65,7 +84,8 @@ a {
 
 .colorName {
   font-size: 1rem;
-  color: var(--color-neutral-900);
+  font-weight: bold;
+  color: var(--color-neutral-1000);
   margin-bottom: 2px;
 }
 

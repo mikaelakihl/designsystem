@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styles from './App.module.css'
+import { paletteHex } from './paletteHex'
 
-function ColorSwatch({ name, value, cssVar }: { name: string; value: string; cssVar: string }) {
+function ColorSwatch({ name, hex, cssVar }: { name: string; hex: string; cssVar: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
@@ -12,7 +13,9 @@ function ColorSwatch({ name, value, cssVar }: { name: string; value: string; css
 
   return (
     <div className={styles.colorSwatch} style={{ cursor: 'pointer' }} onClick={handleCopy}>
-      <div className={styles.colorPreview} style={{ backgroundColor: value }} />
+      <div className={styles.colorPreview} style={{ backgroundColor: cssVar }}>
+        <span className={styles.hexWindow}>{hex}</span>
+      </div>
       <div className={styles.colorInfo}>
         <div className={styles.colorName}>{name}</div>
         <div className={styles.colorValue}>{copied ? 'Copied!' : cssVar}</div>
@@ -67,7 +70,7 @@ function App() {
                       <ColorSwatch
                         key={shade}
                         name={String(shade)}
-                        value={cssVar}
+                        hex={paletteHex[prefix][shade]}
                         cssVar={cssVar}
                       />
                     )
