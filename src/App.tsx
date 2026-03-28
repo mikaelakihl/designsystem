@@ -94,10 +94,46 @@ const SEMANTIC_TOKEN_GROUPS = [
   },
 ] as const
 
+const SPACE_TOKENS = [
+  { label: 'xs', token: 'xs', px: '4px' },
+  { label: 'sm', token: 'sm', px: '8px' },
+  { label: 'md', token: 'md', px: '12px' },
+  { label: 'lg', token: 'lg', px: '16px' },
+  { label: 'xl', token: 'xl', px: '24px' },
+  { label: '2xl', token: '2xl', px: '32px' },
+  { label: '3xl', token: '3xl', px: '40px' },
+  { label: '4xl', token: '4xl', px: '48px' },
+] as const
+
+function SpaceSwatch({ label, token, px }: { label: string; token: string; px: string }) {
+  const cssVar = `var(--space-${token})`
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cssVar)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.spaceItem}
+      onClick={handleCopy}
+      aria-label={`Kopiera ${cssVar} (${px})`}
+    >
+      <div className={styles.spaceSquare} style={{ width: cssVar, height: cssVar }} aria-hidden />
+      <span className={styles.spaceItemLabel}>{label}</span>
+      <span className={styles.spaceItemPx}>{copied ? 'Copied!' : px}</span>
+    </button>
+  )
+}
+
 function App() {
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
+    { id: 'spacing', label: 'Spacing' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -154,6 +190,14 @@ function App() {
                 </div>
               </div>
             ))}
+          </section>
+          <section className={styles.section}>
+            <h2 id="spacing">Spacing</h2>
+            <div className={styles.spaceGrid}>
+              {SPACE_TOKENS.map(({ label, token, px }) => (
+                <SpaceSwatch key={token} label={label} token={token} px={px} />
+              ))}
+            </div>
           </section>
           <section className={styles.section}>
             <h2 id="typography">Typography</h2>
