@@ -40,9 +40,64 @@ const COLOR_CATEGORIES = [
   { label: 'Pink', prefix: 'pink' },
 ] as const
 
+/** Hex labels mirror semantic-tokens.css → keep in sync when tokens change. */
+const SEMANTIC_TOKEN_GROUPS = [
+  {
+    label: 'Background',
+    tokens: [
+      { name: 'page', token: 'background-page', hex: paletteHex.neutral[100] },
+      { name: 'surface', token: 'background-surface', hex: paletteHex.neutral[0] },
+      { name: 'elevated', token: 'background-elevated', hex: paletteHex.neutral[0] },
+      { name: 'inverse', token: 'background-inverse', hex: paletteHex.neutral[900] },
+    ],
+  },
+  {
+    label: 'Text',
+    tokens: [
+      { name: 'primary', token: 'text-primary', hex: paletteHex.neutral[900] },
+      { name: 'secondary', token: 'text-secondary', hex: paletteHex.neutral[600] },
+      { name: 'muted', token: 'text-muted', hex: paletteHex.neutral[500] },
+      { name: 'inverse', token: 'text-inverse', hex: paletteHex.neutral[0] },
+      { name: 'danger', token: 'text-danger', hex: paletteHex.red[600] },
+    ],
+  },
+  {
+    label: 'Border',
+    tokens: [
+      { name: 'subtle', token: 'border-subtle', hex: paletteHex.neutral[100] },
+      { name: 'default', token: 'border-default', hex: paletteHex.neutral[300] },
+      { name: 'strong', token: 'border-strong', hex: paletteHex.neutral[500] },
+      { name: 'focus', token: 'border-focus', hex: paletteHex.blue[500] },
+    ],
+  },
+  {
+    label: 'Action',
+    tokens: [
+      { name: 'primary', token: 'action-primary', hex: paletteHex.blue[600] },
+      { name: 'primary hover', token: 'action-primary-hover', hex: paletteHex.blue[500] },
+      { name: 'primary active', token: 'action-primary-active', hex: paletteHex.blue[700] },
+      { name: 'primary disabled', token: 'action-primary-disabled', hex: paletteHex.neutral[300] },
+    ],
+  },
+  {
+    label: 'Feedback',
+    tokens: [
+      { name: 'success', token: 'feedback-success', hex: paletteHex.green[500] },
+      { name: 'warning', token: 'feedback-warning', hex: paletteHex.yellow[500] },
+      { name: 'danger', token: 'feedback-danger', hex: paletteHex.red[500] },
+      { name: 'info', token: 'feedback-info', hex: paletteHex.blue[500] },
+    ],
+  },
+  {
+    label: 'Focus',
+    tokens: [{ name: 'ring', token: 'focus-ring', hex: paletteHex.blue[500] }],
+  },
+] as const
+
 function App() {
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
+    { id: 'semantic-colors', label: 'Semantic color' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -80,6 +135,21 @@ function App() {
                         cssVar={cssVar}
                       />
                     )
+                  })}
+                </div>
+              </div>
+            ))}
+          </section>
+          <section className={styles.section}>
+            <h2 id="semantic-colors">Semantic color</h2>
+
+            {SEMANTIC_TOKEN_GROUPS.map(({ label, tokens }) => (
+              <div key={label}>
+                <h3 className={styles.subHeading}>{label}</h3>
+                <div className={styles.colorGrid}>
+                  {tokens.map(({ name, token, hex }) => {
+                    const cssVar = `var(--color-${token})`
+                    return <ColorSwatch key={token} name={name} hex={hex} cssVar={cssVar} />
                   })}
                 </div>
               </div>

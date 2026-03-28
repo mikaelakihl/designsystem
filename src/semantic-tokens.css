@@ -1,0 +1,39 @@
+/**
+ * Semantic color tokens — roles only. Values reference primitives in color-tokens.css.
+ * Neutral ramp = “gray” in design language (page tint uses 100 as lightest non-white).
+ */
+:root {
+  /* background */
+  --color-background-page: var(--color-neutral-100);
+  --color-background-surface: var(--color-neutral-0);
+  --color-background-elevated: var(--color-neutral-0);
+  --color-background-inverse: var(--color-neutral-900);
+
+  /* text */
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-muted: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-0);
+  --color-text-danger: var(--color-red-600);
+
+  /* border */
+  --color-border-subtle: var(--color-neutral-100);
+  --color-border-default: var(--color-neutral-300);
+  --color-border-strong: var(--color-neutral-500);
+  --color-border-focus: var(--color-blue-500);
+
+  /* action */
+  --color-action-primary: var(--color-blue-600);
+  --color-action-primary-hover: var(--color-blue-500);
+  --color-action-primary-active: var(--color-blue-700);
+  --color-action-primary-disabled: var(--color-neutral-300);
+
+  /* feedback */
+  --color-feedback-success: var(--color-green-500);
+  --color-feedback-warning: var(--color-yellow-500);
+  --color-feedback-danger: var(--color-red-500);
+  --color-feedback-info: var(--color-blue-500);
+
+  /* focus */
+  --color-focus-ring: var(--color-blue-500);
+}
