@@ -41,7 +41,10 @@ const COLOR_CATEGORIES = [
 ] as const
 
 function App() {
-  const anchorlinks = [{ id: 'colors', label: 'Color' }]
+  const anchorlinks = [
+    { id: 'colors', label: 'Color' },
+    { id: 'typography', label: 'Typography' },
+  ]
   return (
     <>
       <header className={styles.header}>
