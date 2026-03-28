@@ -44,7 +44,8 @@ function App() {
   const anchorlinks = [{ id: 'colors', label: 'Color' }]
   return (
     <>
-      <header>
+      <header className={styles.header}>
+        <img src="assets/rtsByKihl.png" height={50} alt="" />
         <h1>Design System</h1>
       </header>
       <main className={styles.main}>
@@ -60,11 +61,11 @@ function App() {
           </nav>
         </div>
         <div className={styles.content}>
-          <section>
+          <section className={styles.section}>
             <h2 id="colors">Color</h2>
             {COLOR_CATEGORIES.map(({ label, prefix }) => (
               <div key={prefix}>
-                <h3>{label}</h3>
+                <h3 className={styles.subHeading}>{label}</h3>
                 <div className={styles.colorGrid}>
                   {(prefix === 'neutral' ? NEUTRAL_SHADES : SHADES).map((shade) => {
                     const cssVar = `var(--color-${prefix}-${shade})`
@@ -80,6 +81,9 @@ function App() {
                 </div>
               </div>
             ))}
+          </section>
+          <section className={styles.section}>
+            <h2 id="typography">Typography</h2>
           </section>
         </div>
       </main>

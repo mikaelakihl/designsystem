@@ -3,4 +3,8 @@
 /* Remove default browser margin so the header can sit flush to the viewport edges. */
 body {
   margin: 0;
+
+  background-color: var(--color-neutral-200);
+  /* padding: 1rem; */
+  /* padding-top: 0; */
 }
