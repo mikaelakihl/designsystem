@@ -3,6 +3,7 @@
  */
 export const paletteHex = {
   neutral: {
+    0: '#ffffff',
     100: '#f7f7f8',
     200: '#e4e4e7',
     300: '#d4d4d8',
@@ -12,7 +13,7 @@ export const paletteHex = {
     700: '#3f3f46',
     800: '#27272a',
     900: '#18181b',
-    1000: '#0a0a0b',
+    1000: '#000000',
   },
   red: {
     100: '#fef2f2',

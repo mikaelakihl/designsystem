@@ -1,9 +1,10 @@
 /**
- * Primitive color scales: 100 = lightest, 1000 = darkest.
- * Tweak hex values to match your brand; naming stays stable.
+ * Primitive color scales: 100 = lightest step in the ramp, 1000 = darkest.
+ * Neutral also defines 0 (white) and 1000 (black) as bookends.
  */
 :root {
   /* Neutral */
+  --color-neutral-0: #ffffff;
   --color-neutral-100: #f7f7f8;
   --color-neutral-200: #e4e4e7;
   --color-neutral-300: #d4d4d8;
@@ -13,7 +14,7 @@
   --color-neutral-700: #3f3f46;
   --color-neutral-800: #27272a;
   --color-neutral-900: #18181b;
-  --color-neutral-1000: #0a0a0b;
+  --color-neutral-1000: #000000;
 
   /* Red */
   --color-red-100: #fef2f2;

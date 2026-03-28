@@ -26,6 +26,8 @@ function ColorSwatch({ name, hex, cssVar }: { name: string; hex: string; cssVar:
 
 const SHADES = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000] as const
 
+const NEUTRAL_SHADES = [0, ...SHADES] as const
+
 const COLOR_CATEGORIES = [
   { label: 'Neutral', prefix: 'neutral' },
   { label: 'Red', prefix: 'red' },
@@ -64,13 +66,13 @@ function App() {
               <div key={prefix}>
                 <h3>{label}</h3>
                 <div className={styles.colorGrid}>
-                  {SHADES.map((shade) => {
+                  {(prefix === 'neutral' ? NEUTRAL_SHADES : SHADES).map((shade) => {
                     const cssVar = `var(--color-${prefix}-${shade})`
                     return (
                       <ColorSwatch
                         key={shade}
                         name={String(shade)}
-                        hex={paletteHex[prefix][shade]}
+                        hex={(paletteHex[prefix] as Record<number, string>)[shade]}
                         cssVar={cssVar}
                       />
                     )
