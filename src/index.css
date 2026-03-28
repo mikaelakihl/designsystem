@@ -7,6 +7,16 @@
 @import './typography-tokens.css';
 @import './text-styles.css';
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Remove default browser margin so the header can sit flush to the viewport edges. */
 body {
   margin: 0;
