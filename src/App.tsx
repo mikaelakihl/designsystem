@@ -190,6 +190,44 @@ const SPACE_TOKENS = [
   { label: '4xl', token: '4xl', px: '48px' },
 ] as const
 
+const RADIUS_TOKENS = [
+  { label: 'none', token: 'none', value: '0px' },
+  { label: 'xs', token: 'xs', value: '2px' },
+  { label: 'sm', token: 'sm', value: '4px' },
+  { label: 'md', token: 'md', value: '8px' },
+  { label: 'lg', token: 'lg', value: '12px' },
+  { label: 'xl', token: 'xl', value: '16px' },
+  { label: 'full', token: 'full', value: '9999px' },
+] as const
+
+function RadiusSwatch({ label, token, value }: { label: string; token: string; value: string }) {
+  const cssVar = `var(--radius-${token})`
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cssVar)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.radiusItem}
+      onClick={handleCopy}
+      aria-label={`Kopiera ${cssVar} (${value})`}
+    >
+      <div
+        className={styles.radiusShape}
+        style={{ borderRadius: cssVar }}
+        aria-hidden
+      />
+      <span className={styles.radiusItemLabel}>{label}</span>
+      <span className={styles.radiusItemValue}>{copied ? 'Copied!' : value}</span>
+    </button>
+  )
+}
+
 function SpaceSwatch({ label, token, px }: { label: string; token: string; px: string }) {
   const cssVar = `var(--space-${token})`
   const [copied, setCopied] = useState(false)
@@ -219,6 +257,7 @@ function App() {
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
     { id: 'spacing', label: 'Spacing' },
+    { id: 'radius', label: 'Radius' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -281,6 +320,14 @@ function App() {
             <div className={styles.spaceGrid}>
               {SPACE_TOKENS.map(({ label, token, px }) => (
                 <SpaceSwatch key={token} label={label} token={token} px={px} />
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="radius">Radius</h2>
+            <div className={styles.radiusGrid}>
+              {RADIUS_TOKENS.map(({ label, token, value }) => (
+                <RadiusSwatch key={token} label={label} token={token} value={value} />
               ))}
             </div>
           </section>
