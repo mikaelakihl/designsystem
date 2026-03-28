@@ -230,6 +230,41 @@ const RADIUS_TOKENS = [
   { label: 'full', token: 'full', value: '9999px' },
 ] as const
 
+const SHADOW_TOKENS = [
+  { label: 'none', token: 'none', blurb: 'none' },
+  { label: 'xs', token: 'xs', blurb: '0 1px 2px · 5%' },
+  { label: 'sm', token: 'sm', blurb: '0 2px 4px · 6%' },
+  { label: 'md', token: 'md', blurb: '0 4px 8px · 8%' },
+  { label: 'lg', token: 'lg', blurb: '0 10px 24px · 12%' },
+  { label: 'xl', token: 'xl', blurb: '0 20px 40px · 16%' },
+] as const
+
+function ShadowSwatch({ label, token, blurb }: { label: string; token: string; blurb: string }) {
+  const cssVar = `var(--shadow-${token})`
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(cssVar)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.shadowItem}
+      onClick={handleCopy}
+      aria-label={`Kopiera ${cssVar}`}
+    >
+      <div className={styles.shadowTileWrap}>
+        <div className={styles.shadowTile} style={{ boxShadow: cssVar }} aria-hidden />
+      </div>
+      <span className={styles.shadowItemLabel}>{label}</span>
+      <span className={styles.shadowItemBlurb}>{copied ? 'Copied!' : blurb}</span>
+    </button>
+  )
+}
+
 function RadiusSwatch({ label, token, value }: { label: string; token: string; value: string }) {
   const cssVar = `var(--radius-${token})`
   const [copied, setCopied] = useState(false)
@@ -288,6 +323,7 @@ function App() {
     { id: 'semantic-colors', label: 'Semantic color' },
     { id: 'spacing', label: 'Spacing' },
     { id: 'radius', label: 'Radius' },
+    { id: 'shadow', label: 'Shadow' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -358,6 +394,14 @@ function App() {
             <div className={styles.radiusGrid}>
               {RADIUS_TOKENS.map(({ label, token, value }) => (
                 <RadiusSwatch key={token} label={label} token={token} value={value} />
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="shadow">Shadow</h2>
+            <div className={styles.shadowGrid}>
+              {SHADOW_TOKENS.map(({ label, token, blurb }) => (
+                <ShadowSwatch key={token} label={label} token={token} blurb={blurb} />
               ))}
             </div>
           </section>
