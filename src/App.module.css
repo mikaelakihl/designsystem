@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.sidebar {
+  background-color: red;
+  padding: 1rem;
+}
+
+.content {
+  background-color: blue;
+  padding: 1rem;
+}
