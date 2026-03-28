@@ -28,3 +28,54 @@ a {
   text-decoration: none;
   color: #333;
 }
+
+.section {
+}
+
+/* .colorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+} */
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.colorSwatch {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 4px;
+  border: 1px solid var(--color-neutral-200);
+}
+
+.colorPreview {
+  height: 60px;
+  width: 100%;
+}
+
+.colorInfo {
+  padding: 8px;
+  background: var(--color-neutral-0);
+}
+
+.colorName {
+  font-size: 1rem;
+  color: var(--color-neutral-900);
+  margin-bottom: 2px;
+}
+
+.colorValue {
+  font-size: var(--font-size-body-xs);
+  color: var(--color-text-tertiary);
+  font-family: monospace;
+}
+
+.colorSwatch:hover .colorValue {
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+}
