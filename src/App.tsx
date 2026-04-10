@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
 import { Button } from './ui/Button/Button'
+import { Input } from './ui/Input/Input'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -396,6 +397,7 @@ function App() {
     { id: 'opacity', label: 'Opacity' },
     { id: 'typography', label: 'Typography' },
     { id: 'button', label: 'Button' },
+    { id: 'input', label: 'Input' },
   ]
   return (
     <>
@@ -731,13 +733,18 @@ function App() {
               <div className={styles.buttonDocBlock}>
                 <h3 className={styles.subHeading}>With icons</h3>
                 <p className={styles.buttonDocHint}>
-                  Use <code>iconLeft</code> and <code>iconRight</code> with any <code>ReactNode</code> (here: inline SVG).
+                  Use <code>iconLeft</code> and <code>iconRight</code> with any{' '}
+                  <code>ReactNode</code> (here: inline SVG).
                 </p>
                 <div className={styles.buttonStateRow}>
                   <Button variant="primary" size="md" iconLeft={<ButtonDocIcon direction="left" />}>
                     Back
                   </Button>
-                  <Button variant="primary" size="md" iconRight={<ButtonDocIcon direction="right" />}>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    iconRight={<ButtonDocIcon direction="right" />}
+                  >
                     Next
                   </Button>
                   <Button
@@ -780,6 +787,10 @@ function App() {
                 </div>
               </div>
             </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="input">Input</h2>
+            <Input />
           </section>
         </div>
       </main>
