@@ -91,6 +91,15 @@ const Z_INDEX_LITERALS: Record<(typeof Z_INDEX_ORDER)[number], string> = {
   tooltip: '1500',
 }
 
+const OPACITY_ORDER = ['disabled', 'muted', 'subtle', 'overlay'] as const
+
+const OPACITY_LITERALS: Record<(typeof OPACITY_ORDER)[number], string> = {
+  disabled: '0.5',
+  muted: '0.7',
+  subtle: '0.85',
+  overlay: '0.6',
+}
+
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
   { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -367,6 +376,7 @@ function App() {
     { id: 'breakpoints', label: 'Breakpoints' },
     { id: 'motion', label: 'Motion' },
     { id: 'z-index', label: 'Z-index' },
+    { id: 'opacity', label: 'Opacity' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -512,6 +522,36 @@ function App() {
                   copyText={`var(--z-index-${key})`}
                 >
                   <span>stacking layer</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="opacity">Opacity</h2>
+            <p className={styles.typeBlockIntro}>
+              Tokens in <code>opacity-tokens.css</code>. Use <code>opacity: var(--opacity-disabled);</code> or in{' '}
+              <code>color: rgb(0 0 0 / var(--opacity-overlay))</code> for overlays.
+            </p>
+            <div className={styles.typeBlock}>
+              {OPACITY_ORDER.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  literal={OPACITY_LITERALS[key]}
+                  copyText={`var(--opacity-${key})`}
+                >
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      minWidth: '4rem',
+                      padding: '2px 8px',
+                      borderRadius: 4,
+                      background: 'var(--color-teal-600)',
+                      opacity: `var(--opacity-${key})`,
+                    }}
+                  >
+                    sample
+                  </span>
                 </TypeTokenRow>
               ))}
             </div>

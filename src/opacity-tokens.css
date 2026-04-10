@@ -1,0 +1,9 @@
+/**
+ * Opacity scale — disabled UI, muted text, subtle fills, scrims.
+ */
+:root {
+  --opacity-disabled: 0.5;
+  --opacity-muted: 0.7;
+  --opacity-subtle: 0.85;
+  --opacity-overlay: 0.6;
+}
