@@ -417,3 +417,78 @@ h2 {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
+
+.buttonShowcase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.buttonDocBlock {
+  margin: 0;
+}
+
+.buttonDocBlock .subHeading {
+  margin-bottom: var(--space-sm);
+}
+
+.buttonDocHint {
+  margin: 0 0 var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.buttonMatrix {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, auto) repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: center;
+  max-width: 40rem;
+}
+
+.buttonMatrixRow {
+  display: contents;
+}
+
+.buttonMatrixCorner {
+  min-height: 1px;
+}
+
+.buttonMatrixColHead {
+  font-family: monospace;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.buttonMatrixRowLabel {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+}
+
+.buttonMatrixCell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3.25rem;
+}
+
+.buttonStateRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.buttonFullWidthShell {
+  max-width: 20rem;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border-default);
+  background: var(--color-neutral-100);
+}

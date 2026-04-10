@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
+import { Button } from './ui/Button/Button'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -99,6 +100,9 @@ const OPACITY_LITERALS: Record<(typeof OPACITY_ORDER)[number], string> = {
   subtle: '0.85',
   overlay: '0.6',
 }
+
+const BUTTON_VARIANTS = ['primary', 'secondary', 'tertiary', 'ghost'] as const
+const BUTTON_SIZES = ['sm', 'md', 'lg'] as const
 
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -378,6 +382,7 @@ function App() {
     { id: 'z-index', label: 'Z-index' },
     { id: 'opacity', label: 'Opacity' },
     { id: 'typography', label: 'Typography' },
+    { id: 'button', label: 'Button' },
   ]
   return (
     <>
@@ -477,8 +482,11 @@ function App() {
           <section className={styles.section}>
             <h2 id="motion">Motion</h2>
             <p className={styles.typeBlockIntro}>
-              Tokens in <code>motion-tokens.css</code>. Use in <code>transition</code> / <code>animation</code>, e.g.{' '}
-              <code>{'transition: opacity var(--motion-duration-normal) var(--motion-easing-smooth);'}</code>
+              Tokens in <code>motion-tokens.css</code>. Use in <code>transition</code> /{' '}
+              <code>animation</code>, e.g.{' '}
+              <code>
+                {'transition: opacity var(--motion-duration-normal) var(--motion-easing-smooth);'}
+              </code>
             </p>
             <div className={styles.typeBlock}>
               <h3 className={styles.subHeading}>Duration</h3>
@@ -510,7 +518,8 @@ function App() {
           <section className={styles.section}>
             <h2 id="z-index">Z-index</h2>
             <p className={styles.typeBlockIntro}>
-              Tokens in <code>z-index-tokens.css</code>. Use <code>z-index: var(--z-index-modal);</code> (or{' '}
+              Tokens in <code>z-index-tokens.css</code>. Use{' '}
+              <code>z-index: var(--z-index-modal);</code> (or{' '}
               <code>calc(var(--z-index-modal) + 1)</code> for a child layer).
             </p>
             <div className={styles.typeBlock}>
@@ -529,7 +538,8 @@ function App() {
           <section className={styles.section}>
             <h2 id="opacity">Opacity</h2>
             <p className={styles.typeBlockIntro}>
-              Tokens in <code>opacity-tokens.css</code>. Use <code>opacity: var(--opacity-disabled);</code> or in{' '}
+              Tokens in <code>opacity-tokens.css</code>. Use{' '}
+              <code>opacity: var(--opacity-disabled);</code> or in{' '}
               <code>color: rgb(0 0 0 / var(--opacity-overlay))</code> for overlays.
             </p>
             <div className={styles.typeBlock}>
@@ -663,6 +673,73 @@ function App() {
               {TEXT_STYLES_DOC.map(({ className, preview }) => (
                 <TextStyleCard key={className} className={className} preview={preview} />
               ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="button">Button</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Button/Button</code>. Rows are variants, columns are sizes.
+                Labels in the grid are only for the docs.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Variants and sizes</h3>
+                <div
+                  className={styles.buttonMatrix}
+                  role="grid"
+                  aria-label="Button variants (rows) and sizes (columns)"
+                >
+                  <div className={styles.buttonMatrixRow} role="row">
+                    <div className={styles.buttonMatrixCorner} aria-hidden />
+                    {BUTTON_SIZES.map((size) => (
+                      <div key={size} className={styles.buttonMatrixColHead} role="columnheader">
+                        {size}
+                      </div>
+                    ))}
+                  </div>
+                  {BUTTON_VARIANTS.map((variant) => (
+                    <div key={variant} className={styles.buttonMatrixRow} role="row">
+                      <div className={styles.buttonMatrixRowLabel} role="rowheader">
+                        {variant}
+                      </div>
+                      {BUTTON_SIZES.map((size) => (
+                        <div key={size} className={styles.buttonMatrixCell} role="gridcell">
+                          <Button variant={variant} size={size}>
+                            Click here
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled, loading, and a full-width example.</p>
+                <div className={styles.buttonStateRow}>
+                  <Button variant="primary" size="md" disabled>
+                    Disabled
+                  </Button>
+                  <Button variant="primary" size="md" loading>
+                    Loading
+                  </Button>
+                  <Button variant="secondary" size="md" disabled>
+                    Disabled
+                  </Button>
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Full width</h3>
+                <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
+                <div className={styles.buttonFullWidthShell}>
+                  <Button variant="primary" size="md" fullWidth>
+                    Full width
+                  </Button>
+                </div>
+              </div>
             </div>
           </section>
         </div>
