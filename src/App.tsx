@@ -104,6 +104,19 @@ const OPACITY_LITERALS: Record<(typeof OPACITY_ORDER)[number], string> = {
 const BUTTON_VARIANTS = ['primary', 'secondary', 'tertiary', 'ghost'] as const
 const BUTTON_SIZES = ['sm', 'md', 'lg'] as const
 
+/** Simple icons for the Button docs (currentColor follows button text). */
+function ButtonDocIcon({ direction }: { direction: 'left' | 'right' }) {
+  const d =
+    direction === 'left'
+      ? 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'
+      : 'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z'
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d={d} />
+    </svg>
+  )
+}
+
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
   { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -712,6 +725,32 @@ function App() {
                       ))}
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>With icons</h3>
+                <p className={styles.buttonDocHint}>
+                  Use <code>iconLeft</code> and <code>iconRight</code> with any <code>ReactNode</code> (here: inline SVG).
+                </p>
+                <div className={styles.buttonStateRow}>
+                  <Button variant="primary" size="md" iconLeft={<ButtonDocIcon direction="left" />}>
+                    Back
+                  </Button>
+                  <Button variant="primary" size="md" iconRight={<ButtonDocIcon direction="right" />}>
+                    Next
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    iconLeft={<ButtonDocIcon direction="left" />}
+                    iconRight={<ButtonDocIcon direction="right" />}
+                  >
+                    Both
+                  </Button>
+                  <Button variant="ghost" size="sm" iconRight={<ButtonDocIcon direction="right" />}>
+                    Small + icon
+                  </Button>
                 </div>
               </div>
 

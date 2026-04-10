@@ -35,11 +35,19 @@ export function Button({
         .filter(Boolean)
         .join(' ')}
     >
-      {!loading && iconLeft && <span className={styles.iconLeft}>{iconLeft}</span>}
+      {!loading && iconLeft && (
+        <span className={styles.iconLeft}>
+          <span className={styles.icon}>{iconLeft}</span>
+        </span>
+      )}
 
       {loading ? 'Loading...' : children}
 
-      {!loading && iconRight && <span className={styles.iconRight}>{iconRight}</span>}
+      {!loading && iconRight && (
+        <span className={styles.iconRight}>
+          <span className={styles.icon}>{iconRight}</span>
+        </span>
+      )}
     </button>
   )
 }
