@@ -34,8 +34,11 @@ ul {
 }
 
 h1 {
+  color: var(--color-neutral-0);
+  -webkit-text-stroke: 1px var(--color-neutral-1000);
+  font-size: var(--font-size-4xl);
+  margin: 0;
   text-align: center;
-  color: var(--color-teal-1000);
 }
 
 li {
@@ -146,11 +149,6 @@ h2 {
 }
 
 /* h1 has default block margins in user-agent styles; strip them inside the bar. */
-.header h1 {
-  margin: 0;
-
-  color: var(--color-teal-1000);
-}
 
 .spaceGrid {
   display: flex;

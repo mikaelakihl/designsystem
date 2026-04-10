@@ -58,6 +58,19 @@ const BREAKPOINT_LITERALS: Record<(typeof BREAKPOINT_ORDER)[number], string> = {
   '2xl': '1536px',
 }
 
+const MOTION_DURATION_ORDER = ['fast', 'normal', 'slow'] as const
+const MOTION_DURATION_LITERALS: Record<(typeof MOTION_DURATION_ORDER)[number], string> = {
+  fast: '100ms',
+  normal: '200ms',
+  slow: '300ms',
+}
+
+const MOTION_EASING_ORDER = ['standard', 'smooth'] as const
+const MOTION_EASING_LITERALS: Record<(typeof MOTION_EASING_ORDER)[number], string> = {
+  standard: 'ease',
+  smooth: 'ease-out',
+}
+
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
   { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -332,6 +345,7 @@ function App() {
     { id: 'radius', label: 'Radius' },
     { id: 'shadow', label: 'Shadow' },
     { id: 'breakpoints', label: 'Breakpoints' },
+    { id: 'motion', label: 'Motion' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -425,6 +439,39 @@ function App() {
                   copyText={`var(--breakpoint-${key})`}
                 >
                   <span>Viewport ≥ {BREAKPOINT_LITERALS[key]} — typisk min-width-gräns</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="motion">Motion</h2>
+            <p className={styles.typeBlockIntro}>
+              Tokens in <code>motion-tokens.css</code>. Use in <code>transition</code> / <code>animation</code>, e.g.{' '}
+              <code>{'transition: opacity var(--motion-duration-normal) var(--motion-easing-smooth);'}</code>
+            </p>
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Duration</h3>
+              {MOTION_DURATION_ORDER.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  literal={MOTION_DURATION_LITERALS[key]}
+                  copyText={`var(--motion-duration-${key})`}
+                >
+                  <span>transition-duration</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+            <div className={styles.typeBlock}>
+              <h3 className={styles.subHeading}>Easing</h3>
+              {MOTION_EASING_ORDER.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  literal={MOTION_EASING_LITERALS[key]}
+                  copyText={`var(--motion-easing-${key})`}
+                >
+                  <span>transition-timing-function</span>
                 </TypeTokenRow>
               ))}
             </div>
