@@ -71,6 +71,26 @@ const MOTION_EASING_LITERALS: Record<(typeof MOTION_EASING_ORDER)[number], strin
   smooth: 'ease-out',
 }
 
+const Z_INDEX_ORDER = [
+  'base',
+  'dropdown',
+  'sticky',
+  'overlay',
+  'modal',
+  'popover',
+  'tooltip',
+] as const
+
+const Z_INDEX_LITERALS: Record<(typeof Z_INDEX_ORDER)[number], string> = {
+  base: '0',
+  dropdown: '1000',
+  sticky: '1100',
+  overlay: '1200',
+  modal: '1300',
+  popover: '1400',
+  tooltip: '1500',
+}
+
 const TEXT_STYLES_DOC = [
   { className: 'text-body-sm', preview: 'The quick brown fox jumps over the lazy dog.' },
   { className: 'text-body-md', preview: 'The quick brown fox jumps over the lazy dog.' },
@@ -346,6 +366,7 @@ function App() {
     { id: 'shadow', label: 'Shadow' },
     { id: 'breakpoints', label: 'Breakpoints' },
     { id: 'motion', label: 'Motion' },
+    { id: 'z-index', label: 'Z-index' },
     { id: 'typography', label: 'Typography' },
   ]
   return (
@@ -472,6 +493,25 @@ function App() {
                   copyText={`var(--motion-easing-${key})`}
                 >
                   <span>transition-timing-function</span>
+                </TypeTokenRow>
+              ))}
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="z-index">Z-index</h2>
+            <p className={styles.typeBlockIntro}>
+              Tokens in <code>z-index-tokens.css</code>. Use <code>z-index: var(--z-index-modal);</code> (or{' '}
+              <code>calc(var(--z-index-modal) + 1)</code> for a child layer).
+            </p>
+            <div className={styles.typeBlock}>
+              {Z_INDEX_ORDER.map((key) => (
+                <TypeTokenRow
+                  key={key}
+                  label={key}
+                  literal={Z_INDEX_LITERALS[key]}
+                  copyText={`var(--z-index-${key})`}
+                >
+                  <span>stacking layer</span>
                 </TypeTokenRow>
               ))}
             </div>
