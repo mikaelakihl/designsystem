@@ -3,6 +3,7 @@ import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
 import { Button } from './ui/Button/Button'
 import { Input } from './ui/Input/Input'
+import { SearchIcon } from 'lucide-react'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -790,7 +791,19 @@ function App() {
           </section>
           <section className={styles.section}>
             <h2 id="input">Input</h2>
-            <Input />
+            <Input
+              placeholder="Search"
+              icon={<SearchIcon />}
+              invalid
+              errorMessage="This is an error message"
+            />
+            <Input
+              placeholder="Search"
+              icon={<SearchIcon />}
+              disabled
+              invalid
+              errorMessage="This is an error message"
+            />
           </section>
         </div>
       </main>

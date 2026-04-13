@@ -4,6 +4,7 @@
   background-color: transparent;
   height: 44px;
   font-size: var(--font-size-md);
+  cursor: pointer;
 }
 .inputContainer {
   display: flex;
@@ -13,4 +14,26 @@
   height: 100%;
   border-radius: var(--radius-xl);
   padding: 0px var(--space-lg);
+}
+
+.inputContainer:not(:disabled):focus-within {
+  /* outline: 1px solid var(--color-neutral-500); */
+  box-shadow: 1px 1px 1px 1px var(--color-neutral-500);
+}
+
+.inputContainer[data-disabled] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.icon[data-disabled] {
+  opacity: var(--opacity-disabled);
+  color: var(--color-neutral-500);
+}
+
+.errorMessage {
+  color: var(--color-red-500);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-xs);
+  margin-left: var(--space-lg);
 }
