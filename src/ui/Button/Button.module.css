@@ -32,6 +32,11 @@
   width: 100%;
 }
 
+.iconOnly {
+  padding: 0;
+  aspect-ratio: 1;
+}
+
 .primary {
   background-color: var(--color-green-1000);
   color: var(--color-green-100);
@@ -47,7 +52,6 @@
 .ghost {
   background-color: transparent;
   color: var(--color-green-1000);
-  border: 1px solid var(--color-green-200);
 }
 
 .button.ghost:hover:not(:disabled) {

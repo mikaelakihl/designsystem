@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   fullWidth?: boolean
+  iconOnly?: boolean
   children?: ReactNode
   iconRight?: ReactNode
   iconLeft?: ReactNode
@@ -18,6 +19,7 @@ export function Button({
   variant = 'primary',
   size = 'sm',
   fullWidth = false,
+  iconOnly = false,
   children,
   iconLeft,
   iconRight,
@@ -31,7 +33,7 @@ export function Button({
       {...props}
       type={type}
       disabled={loading || disabled}
-      className={[styles.button, styles[size], styles[variant], fullWidth && styles.fullWidth]
+      className={[styles.button, styles[size], styles[variant], fullWidth && styles.fullWidth, iconOnly && styles.iconOnly]
         .filter(Boolean)
         .join(' ')}
     >
