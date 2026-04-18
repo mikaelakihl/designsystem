@@ -14,10 +14,21 @@ interface ModalProps {
   closeOnBackdropClick?: boolean
 }
 
-export function Modal({ open, title, children, onClose, leftActions, actions, size = 'md', closeOnBackdropClick = true }: ModalProps) {
+export function Modal({
+  open,
+  title,
+  children,
+  onClose,
+  leftActions,
+  actions,
+  size = 'md',
+  closeOnBackdropClick = true,
+}: ModalProps) {
   useEffect(() => {
     if (!open) return
-    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose?.() }
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose?.()
+    }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [open, onClose])
@@ -34,9 +45,11 @@ export function Modal({ open, title, children, onClose, leftActions, actions, si
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.header}>
-          <h2 id="modal-title" className={styles.title}>{title}</h2>
+          <h2 id="modal-title" className={styles.title}>
+            {title}
+          </h2>
           <Button variant="ghost" size="sm" iconOnly aria-label="Close" onClick={onClose}>
-            <XIcon size={18} />
+            <XIcon size={20} />
           </Button>
         </div>
 

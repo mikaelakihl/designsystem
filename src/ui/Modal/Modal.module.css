@@ -30,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--space-lg);
+  padding: var(--space-xs) var(--space-lg);
   height: 48px;
   background-color: var(--color-background-surface);
 }
@@ -40,8 +40,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--space-lg);
+  padding: var(--space-xs) var(--space-lg);
   border-top: 1px solid var(--color-neutral-100);
+  background-color: var(--color-background-surface);
 }
 
 .title {
@@ -55,10 +56,7 @@
   margin: var(--space-lg);
   border-radius: var(--radius-md);
   background-color: var(--color-background-surface);
-}
-
-.footer {
-  background-color: var(--color-background-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .actions {
