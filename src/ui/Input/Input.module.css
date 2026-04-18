@@ -4,8 +4,13 @@
   background-color: transparent;
   height: 44px;
   font-size: var(--font-size-md);
-  cursor: pointer;
+  cursor: text;
 }
+
+.fullWidth {
+  width: 100%;
+}
+
 .inputContainer {
   display: flex;
   align-items: center;
@@ -14,11 +19,12 @@
   height: 100%;
   border-radius: var(--radius-xl);
   padding: 0px var(--space-lg);
+  min-width: 240px;
+  outline: 1px solid var(--color-neutral-300);
 }
 
-.inputContainer:not(:disabled):focus-within {
-  /* outline: 1px solid var(--color-neutral-500); */
-  box-shadow: 1px 1px 1px 1px var(--color-neutral-500);
+.inputContainer:has(input[aria-invalid='true']) {
+  outline: 1px solid var(--color-red-500);
 }
 
 .inputContainer[data-disabled] {
