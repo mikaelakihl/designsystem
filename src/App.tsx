@@ -11,6 +11,7 @@ import { Radio } from './ui/Radio/Radio'
 import { Checkbox } from './ui/Checkbox/Checkbox'
 import { Textarea } from './ui/Textarea/Textarea'
 import { Toggle } from './ui/Toggle/Toggle'
+import { HamburgerButton } from './ui/HamburgerButton/HamburgerButton'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -399,6 +400,7 @@ function App() {
   const [checkbox2, setCheckbox2] = useState(true)
   const [toggle1, setToggle1] = useState(false)
   const [toggle2, setToggle2] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
@@ -418,6 +420,7 @@ function App() {
     { id: 'checkbox', label: 'Checkbox' },
     { id: 'textarea', label: 'Textarea' },
     { id: 'toggle', label: 'Toggle' },
+    { id: 'hamburger-button', label: 'Hamburger Button' },
   ]
   return (
     <>
@@ -1209,6 +1212,32 @@ function App() {
                 <div className={styles.buttonStateRow}>
                   <Toggle id="toggle-disabled-off" label="Notifications" disabled />
                   <Toggle id="toggle-disabled-on" label="Dark mode" checked disabled />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="hamburger-button">Hamburger Button</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/HamburgerButton/HamburgerButton</code>. Animates between ☰ and ✕. Consumer controls open state.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>Click to toggle between open and closed.</p>
+                <div className={styles.buttonStateRow}>
+                  <HamburgerButton open={menuOpen} onClick={() => setMenuOpen((v) => !v)} />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Closed, open, and disabled.</p>
+                <div className={styles.buttonStateRow}>
+                  <HamburgerButton open={false} onClick={() => {}} />
+                  <HamburgerButton open={true} onClick={() => {}} />
+                  <HamburgerButton open={false} onClick={() => {}} disabled />
                 </div>
               </div>
             </div>
