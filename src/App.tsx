@@ -7,6 +7,7 @@ import { SearchIcon } from 'lucide-react'
 import { Select } from './ui/Select/Select'
 import { DatePicker } from './ui/DatePicker/DatePicker'
 import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
+import { Radio } from './ui/Radio/Radio'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -389,6 +390,8 @@ function SpaceSwatch({ label, token, px }: { label: string; token: string; px: s
 }
 
 function App() {
+  const [selectedRadio, setSelectedRadio] = useState('')
+  const [selectedRadioStates, setSelectedRadioStates] = useState('')
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
@@ -404,6 +407,7 @@ function App() {
     { id: 'input', label: 'Input' },
     { id: 'select', label: 'Select' },
     { id: 'date-pickers', label: 'Date Pickers' },
+    { id: 'radio', label: 'Radio' },
   ]
   return (
     <>
@@ -971,10 +975,21 @@ function App() {
                 <h3 className={styles.subHeading}>Date range picker</h3>
                 <p className={styles.buttonDocHint}>Default, disabled, and invalid states.</p>
                 <div className={styles.buttonDocBlock}>
-                  <DateRangePicker idFrom="range-from" idTo="range-to" labelFrom="From" labelTo="To" />
+                  <DateRangePicker
+                    idFrom="range-from"
+                    idTo="range-to"
+                    labelFrom="From"
+                    labelTo="To"
+                  />
                 </div>
                 <div className={styles.buttonDocBlock}>
-                  <DateRangePicker idFrom="range-from-disabled" idTo="range-to-disabled" labelFrom="From" labelTo="To" disabled />
+                  <DateRangePicker
+                    idFrom="range-from-disabled"
+                    idTo="range-to-disabled"
+                    labelFrom="From"
+                    labelTo="To"
+                    disabled
+                  />
                 </div>
                 <div className={styles.buttonDocBlock}>
                   <DateRangePicker
@@ -985,6 +1000,93 @@ function App() {
                     invalid
                     errorMessage="This field is required"
                   />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="radio">Radio</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Radio/Radio</code>. Supports label, invalid state and disabled.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>A group of radio buttons sharing the same name.</p>
+                <div className={styles.buttonStateRow}>
+                  <div>
+                    <Radio
+                      id="radio-1"
+                      name="radio-default"
+                      value="1"
+                      label="Option one"
+                      checked={selectedRadio === '1'}
+                      onChange={setSelectedRadio}
+                    />
+                    <Radio
+                      id="radio-2"
+                      name="radio-default"
+                      value="2"
+                      label="Option two"
+                      checked={selectedRadio === '2'}
+                      onChange={setSelectedRadio}
+                    />
+                    <Radio
+                      id="radio-3"
+                      name="radio-default"
+                      value="3"
+                      label="Option three"
+                      checked={selectedRadio === '3'}
+                      onChange={setSelectedRadio}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled and invalid.</p>
+                <div className={styles.buttonStateRow}>
+                  <div>
+                    <Radio
+                      id="radio-disabled-1"
+                      name="radio-disabled"
+                      value="1"
+                      label="Disabled unchecked"
+                      onChange={setSelectedRadioStates}
+                      disabled
+                    />
+                    <Radio
+                      id="radio-disabled-2"
+                      name="radio-disabled"
+                      value="2"
+                      label="Disabled checked"
+                      checked
+                      onChange={setSelectedRadioStates}
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <Radio
+                      id="radio-invalid-1"
+                      name="radio-invalid"
+                      value="invalid-1"
+                      label="Invalid option"
+                      checked={selectedRadioStates === 'invalid-1'}
+                      onChange={setSelectedRadioStates}
+                      invalid
+                    />
+                    <Radio
+                      id="radio-invalid-2"
+                      name="radio-invalid"
+                      value="invalid-2"
+                      label="Another option"
+                      checked={selectedRadioStates === 'invalid-2'}
+                      onChange={setSelectedRadioStates}
+                      invalid
+                    />
+                  </div>
                 </div>
               </div>
             </div>
