@@ -8,6 +8,7 @@ import { Select } from './ui/Select/Select'
 import { DatePicker } from './ui/DatePicker/DatePicker'
 import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
 import { Radio } from './ui/Radio/Radio'
+import { Checkbox } from './ui/Checkbox/Checkbox'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -392,6 +393,8 @@ function SpaceSwatch({ label, token, px }: { label: string; token: string; px: s
 function App() {
   const [selectedRadio, setSelectedRadio] = useState('')
   const [selectedRadioStates, setSelectedRadioStates] = useState('')
+  const [checkbox1, setCheckbox1] = useState(false)
+  const [checkbox2, setCheckbox2] = useState(true)
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
@@ -408,6 +411,7 @@ function App() {
     { id: 'select', label: 'Select' },
     { id: 'date-pickers', label: 'Date Pickers' },
     { id: 'radio', label: 'Radio' },
+    { id: 'checkbox', label: 'Checkbox' },
   ]
   return (
     <>
@@ -1087,6 +1091,43 @@ function App() {
                       invalid
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="checkbox">Checkbox</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Checkbox/Checkbox</code>. Supports label, invalid state and disabled.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>Unchecked and checked.</p>
+                <div className={styles.buttonStateRow}>
+                  <Checkbox
+                    id="checkbox-1"
+                    label="Option one"
+                    checked={checkbox1}
+                    onChange={setCheckbox1}
+                  />
+                  <Checkbox
+                    id="checkbox-2"
+                    label="Option two"
+                    checked={checkbox2}
+                    onChange={setCheckbox2}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled and invalid.</p>
+                <div className={styles.buttonStateRow}>
+                  <Checkbox id="checkbox-disabled" label="Disabled unchecked" disabled />
+                  <Checkbox id="checkbox-disabled-checked" label="Disabled checked" checked disabled />
+                  <Checkbox id="checkbox-invalid" label="Invalid" invalid />
                 </div>
               </div>
             </div>
