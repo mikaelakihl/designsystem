@@ -10,6 +10,7 @@ import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
 import { Radio } from './ui/Radio/Radio'
 import { Checkbox } from './ui/Checkbox/Checkbox'
 import { Textarea } from './ui/Textarea/Textarea'
+import { Toggle } from './ui/Toggle/Toggle'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -396,6 +397,8 @@ function App() {
   const [selectedRadioStates, setSelectedRadioStates] = useState('')
   const [checkbox1, setCheckbox1] = useState(false)
   const [checkbox2, setCheckbox2] = useState(true)
+  const [toggle1, setToggle1] = useState(false)
+  const [toggle2, setToggle2] = useState(true)
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
@@ -414,6 +417,7 @@ function App() {
     { id: 'radio', label: 'Radio' },
     { id: 'checkbox', label: 'Checkbox' },
     { id: 'textarea', label: 'Textarea' },
+    { id: 'toggle', label: 'Toggle' },
   ]
   return (
     <>
@@ -1179,6 +1183,32 @@ function App() {
                 <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
                 <div className={styles.buttonFullWidthShell}>
                   <Textarea id="textarea-fullwidth" label="Message" placeholder="Write your message…" fullWidth />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="toggle">Toggle</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Toggle/Toggle</code>. Supports label, disabled state.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>Off and on.</p>
+                <div className={styles.buttonStateRow}>
+                  <Toggle id="toggle-1" label="Notifications" checked={toggle1} onChange={setToggle1} />
+                  <Toggle id="toggle-2" label="Dark mode" checked={toggle2} onChange={setToggle2} />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled off and disabled on.</p>
+                <div className={styles.buttonStateRow}>
+                  <Toggle id="toggle-disabled-off" label="Notifications" disabled />
+                  <Toggle id="toggle-disabled-on" label="Dark mode" checked disabled />
                 </div>
               </div>
             </div>
