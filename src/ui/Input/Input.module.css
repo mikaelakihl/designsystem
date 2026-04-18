@@ -7,6 +7,12 @@
   cursor: text;
 }
 
+.input:disabled {
+  opacity: var(--opacity-disabled);
+  color: var(--color-neutral-500);
+  cursor: not-allowed;
+}
+
 .fullWidth {
   width: 100%;
 }
@@ -39,10 +45,11 @@
 .icon[data-disabled] {
   opacity: var(--opacity-disabled);
   color: var(--color-neutral-500);
+  cursor: not-allowed;
 }
 
 .errorMessage {
-  color: var(--color-red-500);
+  color: var(--color-feedback-danger);
   font-size: var(--font-size-sm);
   margin-top: var(--space-xs);
   margin-left: var(--space-lg);
