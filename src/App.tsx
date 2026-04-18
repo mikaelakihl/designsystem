@@ -9,6 +9,7 @@ import { DatePicker } from './ui/DatePicker/DatePicker'
 import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
 import { Radio } from './ui/Radio/Radio'
 import { Checkbox } from './ui/Checkbox/Checkbox'
+import { Textarea } from './ui/Textarea/Textarea'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -412,6 +413,7 @@ function App() {
     { id: 'date-pickers', label: 'Date Pickers' },
     { id: 'radio', label: 'Radio' },
     { id: 'checkbox', label: 'Checkbox' },
+    { id: 'textarea', label: 'Textarea' },
   ]
   return (
     <>
@@ -1128,6 +1130,55 @@ function App() {
                   <Checkbox id="checkbox-disabled" label="Disabled unchecked" disabled />
                   <Checkbox id="checkbox-disabled-checked" label="Disabled checked" checked disabled />
                   <Checkbox id="checkbox-invalid" label="Invalid" invalid />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="textarea">Textarea</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Textarea/Textarea</code>. Supports label, placeholder, invalid
+                state, disabled, and full width.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>With label.</p>
+                <div className={styles.buttonStateRow}>
+                  <Textarea id="textarea-default" label="Message" placeholder="Write your message…" />
+                  <Textarea id="textarea-default-2" label="Description" placeholder="Write a description…" />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Without label</h3>
+                <p className={styles.buttonDocHint}>Label omitted, placeholder only.</p>
+                <div className={styles.buttonStateRow}>
+                  <Textarea id="textarea-no-label" placeholder="Write your message…" />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled and invalid.</p>
+                <div className={styles.buttonStateRow}>
+                  <Textarea id="textarea-disabled" label="Message" placeholder="Write your message…" disabled />
+                  <Textarea
+                    id="textarea-invalid"
+                    label="Message"
+                    placeholder="Write your message…"
+                    invalid
+                    errorMessage="This field is required"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Full width</h3>
+                <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
+                <div className={styles.buttonFullWidthShell}>
+                  <Textarea id="textarea-fullwidth" label="Message" placeholder="Write your message…" fullWidth />
                 </div>
               </div>
             </div>
