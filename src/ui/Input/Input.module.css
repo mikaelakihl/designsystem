@@ -54,3 +54,7 @@
   margin-top: var(--space-xs);
   margin-left: var(--space-lg);
 }
+
+.inputContainer:not([data-disabled]):hover {
+  background-color: var(--color-neutral-200);
+}
