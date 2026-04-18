@@ -3,7 +3,7 @@ import styles from './App.module.css'
 import { paletteHex } from './paletteHex'
 import { Button } from './ui/Button/Button'
 import { Input } from './ui/Input/Input'
-import { SearchIcon } from 'lucide-react'
+import { SearchIcon, TrashIcon, XIcon } from 'lucide-react'
 import { Select } from './ui/Select/Select'
 import { DatePicker } from './ui/DatePicker/DatePicker'
 import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
@@ -12,6 +12,7 @@ import { Checkbox } from './ui/Checkbox/Checkbox'
 import { Textarea } from './ui/Textarea/Textarea'
 import { Toggle } from './ui/Toggle/Toggle'
 import { HamburgerButton } from './ui/HamburgerButton/HamburgerButton'
+import { Modal } from './ui/Modal/Modal'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -401,6 +402,7 @@ function App() {
   const [toggle1, setToggle1] = useState(false)
   const [toggle2, setToggle2] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [modalSize, setModalSize] = useState<'sm' | 'md' | 'lg' | null>(null)
   const anchorlinks = [
     { id: 'colors', label: 'Color' },
     { id: 'semantic-colors', label: 'Semantic color' },
@@ -421,6 +423,7 @@ function App() {
     { id: 'textarea', label: 'Textarea' },
     { id: 'toggle', label: 'Toggle' },
     { id: 'hamburger-button', label: 'Hamburger Button' },
+    { id: 'modal', label: 'Modal' },
   ]
   return (
     <>
@@ -809,6 +812,28 @@ function App() {
                   </Button>
                 </div>
               </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Icon only</h3>
+                <p className={styles.buttonDocHint}>Square buttons — always pass aria-label.</p>
+                <div className={styles.buttonStateRow}>
+                  <Button variant="ghost" size="sm" iconOnly aria-label="Close">
+                    <XIcon size={18} />
+                  </Button>
+                  <Button variant="ghost" size="md" iconOnly aria-label="Close">
+                    <XIcon size={20} />
+                  </Button>
+                  <Button variant="ghost" size="lg" iconOnly aria-label="Close">
+                    <XIcon size={22} />
+                  </Button>
+                  <Button variant="secondary" size="md" iconOnly aria-label="Close">
+                    <XIcon size={20} />
+                  </Button>
+                  <Button variant="ghost" size="md" iconOnly disabled aria-label="Close">
+                    <XIcon size={20} />
+                  </Button>
+                </div>
+              </div>
             </div>
           </section>
           <section className={styles.section}>
@@ -1026,7 +1051,9 @@ function App() {
 
               <div className={styles.buttonDocBlock}>
                 <h3 className={styles.subHeading}>Default</h3>
-                <p className={styles.buttonDocHint}>A group of radio buttons sharing the same name.</p>
+                <p className={styles.buttonDocHint}>
+                  A group of radio buttons sharing the same name.
+                </p>
                 <div className={styles.buttonStateRow}>
                   <div>
                     <Radio
@@ -1108,7 +1135,8 @@ function App() {
             <h2 id="checkbox">Checkbox</h2>
             <div className={styles.buttonShowcase}>
               <p className={styles.typeBlockIntro}>
-                Component: <code>ui/Checkbox/Checkbox</code>. Supports label, invalid state and disabled.
+                Component: <code>ui/Checkbox/Checkbox</code>. Supports label, invalid state and
+                disabled.
               </p>
 
               <div className={styles.buttonDocBlock}>
@@ -1135,7 +1163,12 @@ function App() {
                 <p className={styles.buttonDocHint}>Disabled and invalid.</p>
                 <div className={styles.buttonStateRow}>
                   <Checkbox id="checkbox-disabled" label="Disabled unchecked" disabled />
-                  <Checkbox id="checkbox-disabled-checked" label="Disabled checked" checked disabled />
+                  <Checkbox
+                    id="checkbox-disabled-checked"
+                    label="Disabled checked"
+                    checked
+                    disabled
+                  />
                   <Checkbox id="checkbox-invalid" label="Invalid" invalid />
                 </div>
               </div>
@@ -1153,8 +1186,16 @@ function App() {
                 <h3 className={styles.subHeading}>Default</h3>
                 <p className={styles.buttonDocHint}>With label.</p>
                 <div className={styles.buttonStateRow}>
-                  <Textarea id="textarea-default" label="Message" placeholder="Write your message…" />
-                  <Textarea id="textarea-default-2" label="Description" placeholder="Write a description…" />
+                  <Textarea
+                    id="textarea-default"
+                    label="Message"
+                    placeholder="Write your message…"
+                  />
+                  <Textarea
+                    id="textarea-default-2"
+                    label="Description"
+                    placeholder="Write a description…"
+                  />
                 </div>
               </div>
 
@@ -1170,7 +1211,12 @@ function App() {
                 <h3 className={styles.subHeading}>States</h3>
                 <p className={styles.buttonDocHint}>Disabled and invalid.</p>
                 <div className={styles.buttonStateRow}>
-                  <Textarea id="textarea-disabled" label="Message" placeholder="Write your message…" disabled />
+                  <Textarea
+                    id="textarea-disabled"
+                    label="Message"
+                    placeholder="Write your message…"
+                    disabled
+                  />
                   <Textarea
                     id="textarea-invalid"
                     label="Message"
@@ -1185,7 +1231,12 @@ function App() {
                 <h3 className={styles.subHeading}>Full width</h3>
                 <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
                 <div className={styles.buttonFullWidthShell}>
-                  <Textarea id="textarea-fullwidth" label="Message" placeholder="Write your message…" fullWidth />
+                  <Textarea
+                    id="textarea-fullwidth"
+                    label="Message"
+                    placeholder="Write your message…"
+                    fullWidth
+                  />
                 </div>
               </div>
             </div>
@@ -1201,7 +1252,12 @@ function App() {
                 <h3 className={styles.subHeading}>Default</h3>
                 <p className={styles.buttonDocHint}>Off and on.</p>
                 <div className={styles.buttonStateRow}>
-                  <Toggle id="toggle-1" label="Notifications" checked={toggle1} onChange={setToggle1} />
+                  <Toggle
+                    id="toggle-1"
+                    label="Notifications"
+                    checked={toggle1}
+                    onChange={setToggle1}
+                  />
                   <Toggle id="toggle-2" label="Dark mode" checked={toggle2} onChange={setToggle2} />
                 </div>
               </div>
@@ -1220,7 +1276,8 @@ function App() {
             <h2 id="hamburger-button">Hamburger Button</h2>
             <div className={styles.buttonShowcase}>
               <p className={styles.typeBlockIntro}>
-                Component: <code>ui/HamburgerButton/HamburgerButton</code>. Animates between ☰ and ✕. Consumer controls open state.
+                Component: <code>ui/HamburgerButton/HamburgerButton</code>. Animates between ☰ and
+                ✕. Consumer controls open state.
               </p>
 
               <div className={styles.buttonDocBlock}>
@@ -1241,6 +1298,47 @@ function App() {
                 </div>
               </div>
             </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="modal">Modal</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Modal/Modal</code>. Controlled via <code>open</code> prop.
+                Closes on backdrop click or Escape.
+              </p>
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Sizes</h3>
+                <p className={styles.buttonDocHint}>sm, md, and lg.</p>
+                <div className={styles.buttonStateRow}>
+                  <Button variant="secondary" size="sm" onClick={() => setModalSize('sm')}>Open sm</Button>
+                  <Button variant="secondary" size="sm" onClick={() => setModalSize('md')}>Open md</Button>
+                  <Button variant="secondary" size="sm" onClick={() => setModalSize('lg')}>Open lg</Button>
+                </div>
+              </div>
+            </div>
+            <Modal
+              open={modalSize !== null}
+              size={modalSize ?? 'md'}
+              title="Modal title"
+              onClose={() => setModalSize(null)}
+              leftActions={
+                <Button iconLeft={<TrashIcon size={18} />} variant="ghost" size="sm">
+                  Delete
+                </Button>
+              }
+              actions={
+                <>
+                  <Button variant="secondary" size="sm" onClick={() => setModalSize(null)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => setModalSize(null)}>
+                    Save
+                  </Button>
+                </>
+              }
+            >
+              <p>Modal content goes here.</p>
+            </Modal>
           </section>
         </div>
       </main>
