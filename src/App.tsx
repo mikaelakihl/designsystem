@@ -791,19 +791,39 @@ function App() {
           </section>
           <section className={styles.section}>
             <h2 id="input">Input</h2>
-            <Input
-              placeholder="Search"
-              icon={<SearchIcon />}
-              invalid
-              errorMessage="This is an error message"
-            />
-            <Input
-              placeholder="Search"
-              icon={<SearchIcon />}
-              disabled
-              invalid
-              errorMessage="This is an error message"
-            />
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Input/Input</code>. Supports label, placeholder, icon, invalid
+                state, disabled, and full width.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>With label and icon, and without icon.</p>
+                <div className={styles.buttonStateRow}>
+                  <Input id="input-default" label="Search" placeholder="Search…" icon={<SearchIcon />} />
+                  <Input id="input-no-icon" label="Name" placeholder="Enter your name" />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled, invalid, and invalid + disabled.</p>
+                <div className={styles.buttonStateRow}>
+                  <Input id="input-disabled" label="Email" placeholder="Enter your email" icon={<SearchIcon />} disabled />
+                  <Input id="input-invalid" label="Email" placeholder="Enter your email" icon={<SearchIcon />} invalid errorMessage="This field is required" />
+                  <Input id="input-invalid-disabled" label="Email" placeholder="Enter your email" icon={<SearchIcon />} invalid disabled errorMessage="This field is required" />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Full width</h3>
+                <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
+                <div className={styles.buttonFullWidthShell}>
+                  <Input id="input-fullwidth" label="Search" placeholder="Search…" icon={<SearchIcon />} fullWidth />
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </main>

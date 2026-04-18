@@ -482,7 +482,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
-  align-items: center;
+  align-items: flex-start;
 }
 
 .buttonFullWidthShell {
