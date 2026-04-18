@@ -1,3 +1,9 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
 .input {
   outline: none;
   border: none;
