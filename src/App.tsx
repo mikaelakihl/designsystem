@@ -4,6 +4,9 @@ import { paletteHex } from './paletteHex'
 import { Button } from './ui/Button/Button'
 import { Input } from './ui/Input/Input'
 import { SearchIcon } from 'lucide-react'
+import { Select } from './ui/Select/Select'
+import { DatePicker } from './ui/DatePicker/DatePicker'
+import { DateRangePicker } from './ui/DateRangePicker/DateRangePicker'
 
 const FONT_FAMILY_KEYS = ['body', 'heading', 'mono'] as const
 const FONT_WEIGHT_KEYS = ['regular', 'medium', 'semibold', 'bold'] as const
@@ -399,6 +402,8 @@ function App() {
     { id: 'typography', label: 'Typography' },
     { id: 'button', label: 'Button' },
     { id: 'input', label: 'Input' },
+    { id: 'select', label: 'Select' },
+    { id: 'date-pickers', label: 'Date Pickers' },
   ]
   return (
     <>
@@ -801,7 +806,12 @@ function App() {
                 <h3 className={styles.subHeading}>Default</h3>
                 <p className={styles.buttonDocHint}>With label and icon, and without icon.</p>
                 <div className={styles.buttonStateRow}>
-                  <Input id="input-default" label="Search" placeholder="Search…" icon={<SearchIcon />} />
+                  <Input
+                    id="input-default"
+                    label="Search"
+                    placeholder="Search…"
+                    icon={<SearchIcon />}
+                  />
                   <Input id="input-no-icon" label="Name" placeholder="Enter your name" />
                 </div>
               </div>
@@ -810,9 +820,30 @@ function App() {
                 <h3 className={styles.subHeading}>States</h3>
                 <p className={styles.buttonDocHint}>Disabled, invalid, and invalid + disabled.</p>
                 <div className={styles.buttonStateRow}>
-                  <Input id="input-disabled" label="Email" placeholder="Enter your email" icon={<SearchIcon />} disabled />
-                  <Input id="input-invalid" label="Email" placeholder="Enter your email" icon={<SearchIcon />} invalid errorMessage="This field is required" />
-                  <Input id="input-invalid-disabled" label="Email" placeholder="Enter your email" icon={<SearchIcon />} invalid disabled errorMessage="This field is required" />
+                  <Input
+                    id="input-disabled"
+                    label="Email"
+                    placeholder="Enter your email"
+                    icon={<SearchIcon />}
+                    disabled
+                  />
+                  <Input
+                    id="input-invalid"
+                    label="Email"
+                    placeholder="Enter your email"
+                    icon={<SearchIcon />}
+                    invalid
+                    errorMessage="This field is required"
+                  />
+                  <Input
+                    id="input-invalid-disabled"
+                    label="Email"
+                    placeholder="Enter your email"
+                    icon={<SearchIcon />}
+                    invalid
+                    disabled
+                    errorMessage="This field is required"
+                  />
                 </div>
               </div>
 
@@ -820,7 +851,140 @@ function App() {
                 <h3 className={styles.subHeading}>Full width</h3>
                 <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
                 <div className={styles.buttonFullWidthShell}>
-                  <Input id="input-fullwidth" label="Search" placeholder="Search…" icon={<SearchIcon />} fullWidth />
+                  <Input
+                    id="input-fullwidth"
+                    label="Search"
+                    placeholder="Search…"
+                    icon={<SearchIcon />}
+                    fullWidth
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="select">Select</h2>
+            <div className={styles.buttonShowcase}>
+              <p className={styles.typeBlockIntro}>
+                Component: <code>ui/Select/Select</code>. Supports label, placeholder, options,
+                invalid state, disabled, and full width.
+              </p>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Default</h3>
+                <p className={styles.buttonDocHint}>With label and placeholder.</p>
+                <div className={styles.buttonStateRow}>
+                  <Select
+                    id="select-default"
+                    label="Country"
+                    options={[
+                      { label: 'Sweden', value: 'se' },
+                      { label: 'Norway', value: 'no' },
+                      { label: 'Denmark', value: 'dk' },
+                    ]}
+                  />
+                  <Select
+                    id="select-default-2"
+                    label="Language"
+                    options={[
+                      { label: 'Swedish', value: 'sv' },
+                      { label: 'English', value: 'en' },
+                      { label: 'Norwegian', value: 'nb' },
+                    ]}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>States</h3>
+                <p className={styles.buttonDocHint}>Disabled, invalid, and invalid + disabled.</p>
+                <div className={styles.buttonStateRow}>
+                  <Select
+                    id="select-disabled"
+                    label="Country"
+                    disabled
+                    options={[
+                      { label: 'Sweden', value: 'se' },
+                      { label: 'Norway', value: 'no' },
+                    ]}
+                  />
+                  <Select
+                    id="select-invalid"
+                    label="Country"
+                    invalid
+                    errorMessage="This field is required"
+                    options={[
+                      { label: 'Sweden', value: 'se' },
+                      { label: 'Norway', value: 'no' },
+                    ]}
+                  />
+                  <Select
+                    id="select-invalid-disabled"
+                    label="Country"
+                    invalid
+                    disabled
+                    errorMessage="This field is required"
+                    options={[
+                      { label: 'Sweden', value: 'se' },
+                      { label: 'Norway', value: 'no' },
+                    ]}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Full width</h3>
+                <p className={styles.buttonDocHint}>Narrow container so stretch is visible.</p>
+                <div className={styles.buttonFullWidthShell}>
+                  <Select
+                    id="select-fullwidth"
+                    label="Country"
+                    fullWidth
+                    options={[
+                      { label: 'Sweden', value: 'se' },
+                      { label: 'Norway', value: 'no' },
+                      { label: 'Denmark', value: 'dk' },
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={styles.section}>
+            <h2 id="date-pickers">Date Pickers</h2>
+            <div className={styles.buttonShowcase}>
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Single date picker</h3>
+                <p className={styles.buttonDocHint}>Default, disabled, and invalid states.</p>
+                <div className={styles.buttonStateRow}>
+                  <DatePicker id="date-picker-default" label="Date" />
+                  <DatePicker id="date-picker-disabled" label="Date" disabled />
+                  <DatePicker
+                    id="date-picker-invalid"
+                    label="Date"
+                    invalid
+                    errorMessage="This field is required"
+                  />
+                </div>
+              </div>
+              <div className={styles.buttonDocBlock}>
+                <h3 className={styles.subHeading}>Date range picker</h3>
+                <p className={styles.buttonDocHint}>Default, disabled, and invalid states.</p>
+                <div className={styles.buttonDocBlock}>
+                  <DateRangePicker idFrom="range-from" idTo="range-to" labelFrom="From" labelTo="To" />
+                </div>
+                <div className={styles.buttonDocBlock}>
+                  <DateRangePicker idFrom="range-from-disabled" idTo="range-to-disabled" labelFrom="From" labelTo="To" disabled />
+                </div>
+                <div className={styles.buttonDocBlock}>
+                  <DateRangePicker
+                    idFrom="range-from-invalid"
+                    idTo="range-to-invalid"
+                    labelFrom="From"
+                    labelTo="To"
+                    invalid
+                    errorMessage="This field is required"
+                  />
                 </div>
               </div>
             </div>
