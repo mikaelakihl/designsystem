@@ -1,0 +1,67 @@
+.toggleContainer {
+  display: inline-flex;
+}
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+}
+
+.toggleLabel[data-disabled] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-neutral-300);
+  flex-shrink: 0;
+  transition: background-color var(--motion-duration-normal) var(--motion-easing-smooth);
+}
+
+.thumb {
+  position: absolute;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-0);
+  transition: transform var(--motion-duration-normal) var(--motion-easing-smooth);
+  box-shadow: var(--shadow-xs);
+}
+
+.toggleInput:checked + .track {
+  background-color: var(--color-teal-800);
+}
+
+.toggleInput:checked + .track .thumb {
+  transform: translateX(20px);
+}
+
+.toggleLabel:not([data-disabled]):hover .track {
+  background-color: var(--color-neutral-400);
+}
+
+.toggleLabel:not([data-disabled]):hover .toggleInput:checked + .track {
+  background-color: var(--color-teal-700);
+}
+
+.toggleInput:focus-visible + .track {
+  outline: 2px solid var(--color-teal-800);
+  outline-offset: 2px;
+}
